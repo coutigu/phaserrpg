@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="phaser.min.js"> </script>
+</head>
+<body>
+   
+   
+    <script>
+
+        var config = {
+                type: Phaser.AUTO, 
+                width: 800, 
+                height: 600,
+                physics: { 
+                    default: 'arcade',
+                    arcade: {
+                        debug: false}
+                    },
+                        scene: {preload: preload,
+                             create: create,
+                              update: update
+                                        }
+                                    };
+
+        var game = new Phaser.Game(config);
+        var player;
+        var cursors;                           
+
+        function preload () {
+           this.load.image('background', 'back.png');
+            this.load.image('player', 'player.png');
+            this.load.image('base_tiles', 'base_tiles.png');
+            this.load.tilemapTiledJSON('mapa', 'map.json');
+
+
+        };
+
+        function create () {
+            
+            //
+            
+           
+            //CONTROLE
+             
+            cursors = this.input.keyboard.createCursorKeys();
+            
+            
+            //JOGADOR - PLAYER
+            
+            
+            //MAPA
+            const map = this.make.tilemap({key: 'mapa', tileWidth: 16, tileHeight: 16});
+            const tileset = map.addTilesetImage('tileset1', 'base_tiles');
+            const layer = map.createLayer('back', tileset, 0,0).setDepth(-1);
+            const layer2 = map.createLayer('top', tileset, 0,0)
+            const layer3 = map.createLayer('tile3', tileset, 0,0);
+
+          player = this.physics.add.sprite(540, 300, 'player'); 
+          
+          //colisão
+            this.physics.add.collider(player, layer2);
+            layer2.setCollision([1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626,
+                                 1655, 1656, 1657, 1658, 1659, 1660, 1661, 1662, 1663, 1664,
+                                 1693, 1694, 1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702,
+                                 1731, 1732, 1733, 1734, 1735, 1736, 1737, 1738, 1739, 1740,
+                                 1769, 1770, 1771, 1772, 1773, 1774, 1775, 1776, 1777, 1778,
+                                 1807, 1808, 1809, 1810,  1813, 1814, 1815, 1816,
+                                 1845, 1846, 1847, 1848,  1851, 1852, 1853, 1854,
+                                
+                                 1235, 1236, 1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 
+                                 1235, 1236, 1237, 1238, 1239, 1240, 1241, 1242, 1243, 1235,
+                                236, 1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1235,
+                                1236, 1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1235,
+                                1236, 1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1015,
+                                1273, 1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 
+                                1273, 1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1273, 
+                                1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1273, 
+                                1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1273, 
+                                1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1053,
+                                1311, 1312, 1313, 1314, 1315, 1316, 1317, 1318, 1319, 1320, 
+                                1311, 1312, 1313, 1314, 1315, 1316, 1317, 1318, 1319, 1311, 
+                                1312, 1313, 1314, 1315, 1316, 1317, 1318, 1319, 1320, 1311,
+                                1312, 1313, 1314, 1315, 1316, 1317, 1318, 1319, 1320, 1311, 
+                                1312, 1313, 1314, 1315, 1316, 1317, 1318, 1319, 1320, 1091,
+                                1349, 1350, 1351, 1352, 1353, 1354, 1355, 1356, 1357, 1358, 
+                                1349, 1350, 1351, 1352, 1353, 1354, 1355, 1356, 1357, 1349, 
+                                1350, 1351, 1352, 1353, 1354, 1355, 1356, 1357, 1358, 1349, 
+                                1350, 1351, 1352, 1353, 1354, 1355, 1356, 1357, 1358, 1349, 
+                                1350, 1351, 1352, 1353, 1354, 1355, 1356, 1357, 1358, 1129,
+
+                                2519, 2520, 2521, 2522, 2523, 2524, 2525, 2526, 2527, 2528, 
+                                3093, 3094, 3095, 3096, 3097, 3098,2557, 
+                                2558, 2559, 2560, 2561, 2562, 2563, 2564, 2565, 2566, 
+                                2595, 2596, 2597, 2598, 2599, 2600, 
+                                2601, 2602, 2603, 2604, 
+                                 2633, 
+                                2634, 2635, 2636, 2637, 2638, 2639, 2640, 2641, 2642, 2671, 2672, 2673, 2674, 2675, 2676, 2677, 
+                                2678, 2679, 2680, 2709, 2710, 
+                                2711, 2712, 2713, 2714, 2715, 2716, 2717, 2718,
+
+                                1011, 1012, 1013, 1014,1049, 1050, 1051, 1052,
+                                ]
+                                 );
+
+        };
+
+        function update () {
+            if (cursors.left.isDown && player.x >= 0) 
+                 {player.setVelocityX(-350); //ESQUERDA
+            } else if (cursors.right.isDown && player.x >= 0) 
+                 { player.setVelocityX(350); //DIREITA  
+            } 
+            else { player.setVelocityX(0)};
+            
+            if (cursors.up.isDown && player.y >= 0) 
+                 {player.setVelocityY(-350); //cima
+            } else if (cursors.down.isDown && player.y >= 0) 
+                 { player.setVelocityY(350); //baixo
+            } 
+            else { player.setVelocityY(0)};
+        };
+
+    </script>
+
+
+</body>
+</html> 
